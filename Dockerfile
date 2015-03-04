@@ -22,21 +22,23 @@ RUN apt-get install -y php5-pgsql
 RUN apt-get install -y php5-redis
 
 # Install ZeroMQ Client
-# RUN apt-get install -y libtool autoconf automake uuid-dev build-essential
-# WORKDIR /tmp
-# RUN wget http://download.zeromq.org/zeromq-4.0.5.tar.gz
-# RUN tar zxvf zeromq-4.0.5.tar.gz
-# WORKDIR /tmp/zeromq-4.0.5
-# RUN ./configure
-# RUN make && make install
+RUN apt-get install -y libtool autoconf automake uuid-dev build-essential
+WORKDIR /tmp
+RUN wget http://download.zeromq.org/zeromq-4.0.5.tar.gz
+RUN tar zxvf zeromq-4.0.5.tar.gz
+WORKDIR /tmp/zeromq-4.0.5
+RUN ./configure
+RUN make && make install
 
-# RUN apt-get install -y libzmq3 libzmq3-dev pkgconfig
-# WORKDIR /tmp
-# RUN wget https://github.com/mkoppanen/php-zmq/archive/master.tar.gz
-# RUN tar xfvz master.tar.gz
-# WORKDIR /tmp/php-zmq-master
-# RUN phpize && ./configure
-# RUN make && make install
+RUN apt-get install -y pkg-config
+WORKDIR /tmp
+RUN wget -O zmq.tar.gz https://github.com/mkoppanen/php-zmq/archive/master.tar.gz
+RUN tar xfvz zmq.tar.gz
+WORKDIR /tmp/php-zmq-master
+RUN phpize && ./configure
+RUN make && make install
+RUN echo "extension=zmq.so" > /etc/php5/mods-available/zmq.ini
+RUN php5enmod zmq
 
 # Install Phalcon
 RUN apt-get install -y php5-dev libpcre3-dev gcc make git
