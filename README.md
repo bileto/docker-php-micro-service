@@ -5,5 +5,6 @@
 - PHP 5.6
 - PHP PostgreSQL
 - PHP Redis
+- PHP MsgPack
 - ZeroMQ + PHP Client
 - Phalcon Framework

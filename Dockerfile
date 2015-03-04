@@ -49,4 +49,14 @@ RUN ./install
 RUN echo "extension=phalcon.so" > /etc/php5/mods-available/phalcon.ini
 RUN php5enmod phalcon
 
+# Install MsgPack
+WORKDIR /tmp
+RUN wget -O msgpack.tar.gz https://github.com/msgpack/msgpack-php/archive/master.tar.gz
+RUN tar xfvz msgpack.tar.gz
+WORKDIR /tmp/msgpack-php-master
+RUN phpize && ./configure
+RUN make && make install
+RUN echo "extension=msgpack.so" > /etc/php5/mods-available/msgpack.ini
+RUN php5enmod msgpack
+
 RUN apt-get clean
