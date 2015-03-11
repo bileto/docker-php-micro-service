@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM phusion/baseimage
 
 # Prepare basic deps
 RUN apt-get update && apt-get install -y wget build-essential
