@@ -15,6 +15,9 @@ RUN apt-get install -y git
 # Install PHP5.6
 RUN apt-get install -y php5-cli php5-dev
 
+# Install PHP Curl
+RUN apt-get install -y php5-curl
+
 # Install Postgres Client
 RUN apt-get install -y php5-pgsql
 
