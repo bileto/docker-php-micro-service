@@ -27,7 +27,7 @@ RUN apt-get install -y php5-redis
 # Install Phalcon
 RUN apt-get install -y php5-dev libpcre3-dev gcc make git
 WORKDIR /tmp
-RUN git clone --depth=1 git://github.com/phalcon/cphalcon.git /usr/local/src/cphalcon
+RUN git clone --depth=1 -b 1.3.4 git://github.com/phalcon/cphalcon.git /usr/local/src/cphalcon
 WORKDIR /usr/local/src/cphalcon/build
 RUN ./install
 RUN echo "extension=phalcon.so" > /etc/php5/mods-available/phalcon.ini
