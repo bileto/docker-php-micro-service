@@ -15,6 +15,10 @@ RUN apt-get install -y git
 # Install PHP5.6
 RUN apt-get install -y php5-cli php5-dev
 
+# allow manipulation with ENV variables
+RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php.ini
+RUN sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' /etc/php5/cli/php.ini
+
 # Install PHP Curl
 RUN apt-get install -y php5-curl
 
