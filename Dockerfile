@@ -51,4 +51,8 @@ RUN php5enmod msgpack
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+# Instal MongoDB driver
+RUN pecl install mongo
+RUN echo "\nextension=mongo.so" > /etc/php5/cli/php.ini
+
 RUN apt-get clean
