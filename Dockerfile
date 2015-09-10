@@ -22,7 +22,7 @@ RUN sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' 
 # Install locale
 RUN apt-get install -y php5-intl
 
-# Install PHP Curl
+# Install PHP Curl  
 RUN apt-get install -y php5-curl
 
 # Install Postgres Client
