@@ -25,7 +25,7 @@ RUN pear upgrade PEAR
 RUN pecl channel-update pecl.php.net
 RUN pecl install intl
 
-# Install PHP Curl  
+# Install PHP Curl
 RUN apt-get install -y php5-curl
 
 # Install Postgres Client
