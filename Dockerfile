@@ -12,11 +12,6 @@ RUN apt-get update
 # Install GIT
 RUN apt-get install -y git
 
-# Install ALL locales
-RUN ln -s /usr/share/i18n/SUPPORTED /var/lib/locales/supported.d/all
-RUN locale-gen
-RUN dpkg-reconfigure locales
-
 # Install PHP5.6
 RUN apt-get install -y php5-cli php5-dev
 
