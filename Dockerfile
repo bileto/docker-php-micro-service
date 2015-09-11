@@ -25,6 +25,7 @@ RUN pear channel-update pear.php.net
 RUN pear upgrade PEAR
 RUN pecl channel-update pecl.php.net
 RUN pecl install intl
+RUN echo "\nextension=intl.so" > /etc/php5/cli/php.ini
 
 # Install PHP Curl
 RUN apt-get install -y php5-curl
