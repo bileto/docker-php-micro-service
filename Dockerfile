@@ -20,6 +20,7 @@ RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php
 RUN sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' /etc/php5/cli/php.ini
 
 # Install locale
+RUN apt-get install libicu-dev
 RUN pear channel-update pear.php.net
 RUN pear upgrade PEAR
 RUN pecl channel-update pecl.php.net
