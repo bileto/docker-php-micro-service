@@ -19,13 +19,8 @@ RUN apt-get install -y php5-cli php5-dev
 RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php.ini
 RUN sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' /etc/php5/cli/php.ini
 
-# Install locale
+# Install ICU for locale
 RUN apt-get install -y libicu-dev
-RUN pear channel-update pear.php.net
-RUN pear upgrade PEAR
-RUN pecl channel-update pecl.php.net
-RUN pecl install intl
-RUN echo "\nextension=intl.so" > /etc/php5/cli/php.ini
 
 # Install PHP Curl
 RUN apt-get install -y php5-curl
@@ -62,5 +57,13 @@ RUN mv composer.phar /usr/local/bin/composer
 # Instal MongoDB driver
 RUN pecl install mongo
 RUN echo "\nextension=mongo.so" > /etc/php5/cli/php.ini
+
+# Install locale
+RUN pear channel-update pear.php.net
+RUN pear upgrade PEAR
+RUN pecl channel-update pecl.php.net
+RUN pecl install intl
+RUN echo "\nextension=intl.so" > /etc/php5/cli/php.ini
+
 
 RUN apt-get clean
