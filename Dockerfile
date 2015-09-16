@@ -56,14 +56,14 @@ RUN mv composer.phar /usr/local/bin/composer
 
 # Instal MongoDB driver
 RUN pecl install mongo
-RUN echo "\nextension=mongo.so" > /etc/php5/cli/php.ini
+RUN echo "\nextension=mongo.so" >> /etc/php5/cli/php.ini
 
 # Install locale
 RUN pear channel-update pear.php.net
 RUN pear upgrade PEAR
 RUN pecl channel-update pecl.php.net
 RUN pecl install intl
-RUN echo "\nextension=intl.so" > /etc/php5/cli/php.ini
+RUN echo "\nextension=intl.so" >> /etc/php5/cli/php.ini
 
 
 RUN apt-get clean
