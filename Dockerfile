@@ -1,7 +1,7 @@
 FROM phusion/baseimage
 
 # Prepare basic deps   
-RUN apt-get update && apt-get install -y curl wget build-essential
+RUN apt-get update && apt-get install -y wget build-essential
 
 # Prepare repositories
 RUN echo "deb http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
@@ -16,9 +16,9 @@ RUN echo "deb http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sou
 RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php.ini \
 	&& sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' /etc/php5/cli/php.ini
 
+
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php \
-  && mv composer.phar /usr/local/bin/composer
+RUN php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/bin --filename=composer
 
 # Instal MongoDB driver
 RUN pecl install mongo \ 
