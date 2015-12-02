@@ -1,7 +1,7 @@
 FROM phusion/baseimage
 
 # Prepare basic deps   
-RUN apt-get install -y wget curl build-essential
+RUN apt-get update && apt-get install -y wget curl build-essential
 
 # Prepare repositories
 RUN echo "deb http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
