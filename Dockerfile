@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM debian:wheezy
 
 # Prepare basic deps   
 RUN apt-get update && apt-get install -y wget build-essential
@@ -7,9 +7,14 @@ RUN apt-get update && apt-get install -y wget build-essential
 RUN echo "deb http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
   && echo "deb-src http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
   && wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg \ 
-  && sudo add-apt-repository ppa:sidroberts/phalcon \
-  && apt-get update \
-  && apt-get install -y libicu52 libicu-dev php5-cli php5-dev php5-curl php5-pgsql php5-redis php5-phalcon-1.3.4 php5-msgpack php-pear libpcre3-dev \
+RUN add-apt-repository ppa:sidroberts/phalcon && apt-get update
+#RUN echo "deb http://ppa.launchpad.net/sidroberts/phalcon/ubuntu wily main" | tee -a /etc/apt/sources.list \
+#  && echo "deb-src http://ppa.launchpad.net/sidroberts/phalcon/ubuntu wily main " | tee -a /etc/apt/sources.list \
+#  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CB0A6154 \
+#  && apt-get update
+ 
+RUN apt-cache search php5 | sort
+RUN apt-get install -y libicu48 libicu-dev php5-cli php5-dev php5-curl php5-pgsql php5-redis php5-phalcon-1.3.4 php5-msgpack php-pear libpcre3-dev \
   && apt-get clean purge
 
 # allow manipulation with ENV variables
