@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y wget \
   && echo "deb http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
   && echo "deb-src http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
   && wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && apt-get update \
-  && apt-get install -y libicu48 libicu-dev php5-cli=5.6\* php5-dev=5.6\* php5-curl=5.6\* php5-pgsql=5.6\* php-pear libpcre3-dev \
+  && apt-get install -y libicu48 libicu-dev php5-cli=5.6\* php5-dev=5.6\* php5-curl=5.6\* php5-pgsql=5.6\* php-pear php-gd libpcre3-dev \
   && apt-get clean purge autoremove -y && rm -rf /var/lib/apt/lists/* \
   && pecl install msgpack-0.5.7 redis mongo intl \
   && echo "extension=msgpack.so" > /etc/php5/mods-available/msgpack.ini \
