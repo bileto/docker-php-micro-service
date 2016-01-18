@@ -1,10 +1,10 @@
 # Bileto docker image for micro-services
 
-**Based on Ubuntu 14.04**
+**Based on Debian wheezy**
 
-- PHP 5.6
-- PHP PostgreSQL
-- PHP Redis
-- PHP MsgPack
-- ZeroMQ + PHP Client
-- Phalcon Framework
+- PHP 5.6 with additional dependencies including:
+    - PHP PostgreSQL
+    - PHP Redis
+    - PHP MsgPack
+    - ZeroMQ + PHP Client
+    - Phalcon Framework
