@@ -15,8 +15,5 @@ RUN apt-get update && apt-get install -y wget \
   && sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php.ini \
   && sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' /etc/php5/cli/php.ini \
   && sed -i 's/;date\.timezone =.*/date.timezone = "UTC"/' /etc/php5/cli/php.ini \
-  && cd /usr/local/src/ && wget https://github.com/phalcon/cphalcon/archive/phalcon-v1.3.4.tar.gz -O -| tar zx \
-  && cd cphalcon-phalcon-v1.3.4/build && ./install && cd / && rm -rf /usr/local/src/cphalcon-phalcon-v1.3.4 \
-  && echo "extension=phalcon.so" > /etc/php5/mods-available/phalcon.ini && php5enmod phalcon \
   && rm -rf /tmp/* \
   && php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/bin --filename=composer
