@@ -1,10 +1,3 @@
-# Bileto docker image for micro-services
+# Base Bileto Docker image API services
 
-**Based on Debian wheezy**
-
-- PHP 5.6 with additional dependencies including:
-    - PHP PostgreSQL
-    - PHP Redis
-    - PHP MsgPack
-    - ZeroMQ + PHP Client
-    - Phalcon Framework
+Based on Debian Wheezy, with **PHP 5.6**. See [Dockerfile](Dockerfile) for details.
