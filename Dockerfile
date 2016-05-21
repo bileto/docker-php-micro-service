@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     libicu52 libicu-dev \
     libpng12-dev libjpeg62-turbo-dev libfreetype6-dev
 
-RUN docker-php-ext-install -j$(nproc) opcache pdo_pgsql gd intl zip
+RUN docker-php-ext-install -j$(nproc) opcache pdo_pgsql gd intl zip bcmath
 
 # Insert full Git revision from the https://github.com/phpredis/phpredis repository.
 # Currently, this is one from the php7 branch.
