@@ -1,18 +1,35 @@
-FROM debian:wheezy
+FROM php:7.0
 
-# Prepare basic deps   
-RUN apt-get update && apt-get install -y wget \
-  && echo "deb http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
-  && echo "deb-src http://packages.dotdeb.org wheezy-php56 all" | tee -a /etc/apt/sources.list \
-  && wget http://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && apt-get update \
-  && apt-get install -y libicu48 libicu-dev php5-cli=5.6\* php5-dev=5.6\* php5-curl=5.6\* php5-pgsql=5.6\* php5-gd=5.6\* php-pear libpcre3-dev \
-  && apt-get clean purge autoremove -y && rm -rf /var/lib/apt/lists/* \
-  && pecl install redis intl \
-  && echo "extension=redis.so" > /etc/php5/mods-available/redis.ini \
-  && echo "extension=intl.so" > /etc/php5/mods-available/intl.ini \
-  && php5enmod redis intl \
-  && sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php.ini \
-  && sed -i 's/safe_mode_allowed_env_vars = .*/safe_mode_allowed_env_vars = ""/' /etc/php5/cli/php.ini \
-  && sed -i 's/;date\.timezone =.*/date.timezone = "UTC"/' /etc/php5/cli/php.ini \
-  && rm -rf /tmp/* \
-  && php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/bin --filename=composer
+# Howto from https://hub.docker.com/_/php/
+
+RUN apt-get update && apt-get install -y \
+    unzip \
+    libpq-dev \
+    libicu52 libicu-dev \
+    libpng12-dev libjpeg62-turbo-dev libfreetype6-dev
+
+RUN docker-php-ext-install -j$(nproc) opcache pdo_pgsql gd intl zip
+
+# Insert full Git revision from the https://github.com/phpredis/phpredis repository.
+# Currently, this is one from the php7 branch.
+ENV PHPREDIS_REVISION ad3c1169363f3268a2edf51041a79db60543d806
+
+RUN cd /tmp \
+    && curl -fsSL https://github.com/phpredis/phpredis/archive/${PHPREDIS_REVISION}.zip -o phpredis.zip \
+    && unzip phpredis.zip \
+    && rm -r phpredis.zip \
+    && ( \
+        cd phpredis-${PHPREDIS_REVISION} \
+        && phpize \
+        && ./configure \
+        && make -j$(nproc) \
+        && make install \
+    ) \
+    && rm -r phpredis-${PHPREDIS_REVISION} \
+    && docker-php-ext-enable redis
+
+RUN cd /tmp \
+    && curl -fsSL https://getcomposer.org/installer -o composer-setup.php \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+COPY php.ini /usr/local/etc/php/conf.d/zzz-php.ini
