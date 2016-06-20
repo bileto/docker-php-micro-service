@@ -6,8 +6,9 @@ ENV PHPREDIS_REVISION adbd246aa62f10211a86c98f805a72a7026dbf98
 
 # Howto from https://hub.docker.com/_/php/
 
-RUN cd /tmp \
+RUN set -x \
 	&& echo "[*] Prerequisities..." \
+	&& cd /tmp \
 	&& apt-get update \
 	&& echo "[*] Installing dependencies for PHP extensions..." \
 	&& apt-get install -y \
@@ -37,7 +38,6 @@ RUN cd /tmp \
         && rm -r composer-setup.php \
 	&& echo "[*] Cleaning up..." \
 	    && apt-get clean purge autoremove -y && rm -rf /var/lib/apt/lists/* \
-		&& rm -rf /usr/src/php \
 		&& rm -rf /tmp/* \
 	&& echo "[*] Done."
 
