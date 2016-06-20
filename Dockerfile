@@ -11,8 +11,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install -j$(nproc) opcache pdo_pgsql gd intl zip bcmath pcntl
 
 # Insert full Git revision from the https://github.com/phpredis/phpredis repository.
-# Currently, this is one from the php7 branch.
-ENV PHPREDIS_REVISION ad3c1169363f3268a2edf51041a79db60543d806
+ENV PHPREDIS_REVISION adbd246aa62f10211a86c98f805a72a7026dbf98 # php7 branch
 
 RUN cd /tmp \
     && curl -fsSL https://github.com/phpredis/phpredis/archive/${PHPREDIS_REVISION}.zip -o phpredis.zip \
