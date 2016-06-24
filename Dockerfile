@@ -6,6 +6,8 @@ ENV PHPREDIS_REVISION adbd246aa62f10211a86c98f805a72a7026dbf98
 
 # Howto from https://hub.docker.com/_/php/
 
+RUN echo "[*] Image uses PHP version ${PHP_VERSION}"
+
 RUN set -x \
 	&& echo "[*] Prerequisities..." \
 	&& cd /tmp \
