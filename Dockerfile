@@ -1,9 +1,5 @@
 FROM php:7.0
 
-# Insert full Git revision from the https://github.com/phpredis/phpredis repository.
-# Commit taken from php7 branch
-ENV PHPREDIS_REVISION adbd246aa62f10211a86c98f805a72a7026dbf98
-
 # Howto from https://hub.docker.com/_/php/
 
 RUN echo "[*] Image uses PHP version ${PHP_VERSION}"
@@ -18,21 +14,11 @@ RUN set -x \
 		libpq-dev \
 		libicu52 libicu-dev \
 		libpng12-dev libjpeg62-turbo-dev libfreetype6-dev \
-	&& echo "[*] Installing PHP extensions..." \
+	&& echo "[*] Installing native PHP extensions..." \
 		&& docker-php-ext-install -j$(nproc) opcache pdo_pgsql gd intl zip bcmath pcntl \
-	&& echo "[*] Installing phpredis extension..." \
-		&& curl -fsSL https://github.com/phpredis/phpredis/archive/${PHPREDIS_REVISION}.zip -o phpredis.zip \
-		&& unzip phpredis.zip \
-		&& rm -r phpredis.zip \
-		&& ( \
-			cd phpredis-${PHPREDIS_REVISION} \
-			&& phpize \
-			&& ./configure \
-			&& make -j$(nproc) \
-			&& make install \
-		) \
-		&& rm -r phpredis-${PHPREDIS_REVISION} \
-		&& docker-php-ext-enable redis \
+	&& echo "[*] Installing PECL extensions..." \
+	    && pecl install redis \
+	    && docker-php-ext-enable redis \
     && echo "[*] Installing Composer..." \
         && curl -fsSL https://getcomposer.org/installer -o composer-setup.php \
         && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
