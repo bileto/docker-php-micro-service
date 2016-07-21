@@ -35,7 +35,6 @@ RUN set -x \
 		&& docker-php-ext-enable redis \
     && echo "[*] Installing Composer..." \
         && curl -fsSL https://getcomposer.org/installer -o composer-setup.php \
-        && php -r "if (hash_file('SHA384', 'composer-setup.php') === 'bf16ac69bd8b807bc6e4499b28968ee87456e29a3894767b60c2d4dafa3d10d045ffef2aeb2e78827fa5f024fbe93ca2') { echo 'Installer verified.'.PHP_EOL; exit(0); } else { echo 'Installer corrupt.'.PHP_EOL; unlink('composer-setup.php'); exit(1); }" \
         && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
         && rm -r composer-setup.php \
 	&& echo "[*] Cleaning up..." \
