@@ -30,4 +30,8 @@ RUN set -x \
 		&& rm -rf /tmp/* \
 	&& echo "[*] Done."
 
+COPY tests /usr/local/include/php/docker-tests
+
+RUN /usr/local/include/php/docker-tests/all.sh
+
 COPY php.ini /usr/local/etc/php/conf.d/zzz-php.ini
