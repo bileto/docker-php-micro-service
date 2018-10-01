@@ -1,4 +1,4 @@
-FROM php:7.1
+FROM php:7.1.22
 
 # Howto from https://hub.docker.com/_/php/
 
@@ -12,8 +12,8 @@ RUN set -x \
 	&& apt-get install -y \
 		unzip \
 		libpq-dev \
-		libicu52 libicu-dev \
-		libpng12-dev libjpeg62-turbo-dev libfreetype6-dev \
+		libicu57 libicu-dev \
+		libpng16-16 libjpeg62-turbo-dev libfreetype6-dev \
 	&& echo "[*] Installing native PHP extensions..." \
 		&& docker-php-ext-install -j$(nproc) opcache pdo_pgsql intl zip bcmath pcntl sockets \
 		&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
