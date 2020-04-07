@@ -1,4 +1,4 @@
-FROM php:7.1.22
+FROM php:7.1.33
 
 # Howto from https://hub.docker.com/_/php/
 
